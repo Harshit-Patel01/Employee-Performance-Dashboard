@@ -1,0 +1,39 @@
+/* =============================================
+   ADD EMPLOYEE CARD
+   ============================================= */
+
+.add-employee-card {
+  max-width: 780px;
+}
+
+/* =============================================
+   FORM ROWS (2-column)
+   ============================================= */
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+
+/* =============================================
+   FORM ACTIONS
+   ============================================= */
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
