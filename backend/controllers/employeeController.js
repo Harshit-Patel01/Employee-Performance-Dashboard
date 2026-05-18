@@ -5,6 +5,17 @@ exports.addEmployee = async (req, res, next) => {
   try {
     const { name, email, department, skills, performanceScore, experience } = req.body;
 
+    // If candidate, link to their user account and ensure they don't already have a profile
+    if (req.user.role === 'candidate') {
+      const existing = await Employee.findOne({ userId: req.user.userId });
+      if (existing) {
+        return res.status(400).json({
+          success: false,
+          message: 'You already have a profile. Use update instead.'
+        });
+      }
+    }
+
     // Create new employee
     const employee = new Employee({
       name,
@@ -12,7 +23,8 @@ exports.addEmployee = async (req, res, next) => {
       department,
       skills,
       performanceScore,
-      experience
+      experience,
+      userId: req.user.role === 'candidate' ? req.user.userId : null
     });
 
     await employee.save();
@@ -27,7 +39,7 @@ exports.addEmployee = async (req, res, next) => {
   }
 };
 
-// Get all employees
+// Get all employees (HR only — enforced by route middleware)
 exports.getAllEmployees = async (req, res, next) => {
   try {
     const employees = await Employee.find().sort({ createdAt: -1 });
@@ -36,6 +48,27 @@ exports.getAllEmployees = async (req, res, next) => {
       success: true,
       count: employees.length,
       data: employees
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Get own profile (for candidates)
+exports.getMyProfile = async (req, res, next) => {
+  try {
+    const employee = await Employee.findOne({ userId: req.user.userId });
+
+    if (!employee) {
+      return res.status(404).json({
+        success: false,
+        message: 'Profile not found. Please create your profile first.'
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: employee
     });
   } catch (error) {
     next(error);
@@ -51,6 +84,14 @@ exports.getEmployeeById = async (req, res, next) => {
       return res.status(404).json({
         success: false,
         message: 'Employee not found'
+      });
+    }
+
+    // Candidates can only view their own profile
+    if (req.user.role === 'candidate' && String(employee.userId) !== String(req.user.userId)) {
+      return res.status(403).json({
+        success: false,
+        message: 'Access denied. You can only view your own profile.'
       });
     }
 
@@ -99,6 +140,17 @@ exports.searchEmployees = async (req, res, next) => {
 exports.updateEmployee = async (req, res, next) => {
   try {
     const { name, email, department, skills, performanceScore, experience } = req.body;
+
+    // Candidates can only update their own profile
+    if (req.user.role === 'candidate') {
+      const employee = await Employee.findById(req.params.id);
+      if (!employee || String(employee.userId) !== String(req.user.userId)) {
+        return res.status(403).json({
+          success: false,
+          message: 'Access denied. You can only update your own profile.'
+        });
+      }
+    }
 
     const employee = await Employee.findByIdAndUpdate(
       req.params.id,

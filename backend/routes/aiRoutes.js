@@ -5,10 +5,11 @@ const {
   rankEmployees,
   getBatchRecommendations
 } = require('../controllers/aiController');
-const authMiddleware = require('../middleware/auth');
+const { authMiddleware, requireRole } = require('../middleware/auth');
 
-// All routes are protected
+// All AI routes are protected and HR-only
 router.use(authMiddleware);
+router.use(requireRole('hr'));
 
 // AI routes
 router.post('/recommend', getRecommendation);

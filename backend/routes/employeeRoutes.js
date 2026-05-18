@@ -4,21 +4,27 @@ const {
   addEmployee,
   getAllEmployees,
   getEmployeeById,
+  getMyProfile,
   searchEmployees,
   updateEmployee,
   deleteEmployee
 } = require('../controllers/employeeController');
-const authMiddleware = require('../middleware/auth');
+const { authMiddleware, requireRole } = require('../middleware/auth');
 
 // All routes are protected
 router.use(authMiddleware);
 
-// Employee routes
+// Candidate: get own profile
+router.get('/me', getMyProfile);
+
+// HR-only routes
+router.get('/', requireRole('hr'), getAllEmployees);
+router.get('/search', requireRole('hr'), searchEmployees);
+router.delete('/:id', requireRole('hr'), deleteEmployee);
+
+// Both HR and candidate can add/update
 router.post('/', addEmployee);
-router.get('/', getAllEmployees);
-router.get('/search', searchEmployees);
 router.get('/:id', getEmployeeById);
 router.put('/:id', updateEmployee);
-router.delete('/:id', deleteEmployee);
 
 module.exports = router;

@@ -5,7 +5,7 @@ const {
   login,
   getCurrentUser
 } = require('../controllers/authController');
-const authMiddleware = require('../middleware/auth');
+const { authMiddleware } = require('../middleware/auth');
 
 // Public routes
 router.post('/signup', signup);
