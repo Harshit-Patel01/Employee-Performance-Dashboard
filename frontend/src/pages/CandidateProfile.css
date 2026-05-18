@@ -1,0 +1,269 @@
+/* =============================================
+   PROFILE GRID
+   ============================================= */
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: var(--space-lg);
+}
+
+/* =============================================
+   PROFILE OVERVIEW CARD
+   ============================================= */
+
+.profile-overview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-xl);
+}
+
+.profile-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--color-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin-bottom: var(--space-lg);
+}
+
+.profile-overview h2 {
+  margin-bottom: 4px;
+  font-size: 1.5rem;
+}
+
+.profile-email {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  margin-bottom: var(--space-md);
+}
+
+.profile-dept-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: var(--color-accent-light);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-xl);
+}
+
+/* =============================================
+   PROFILE STATS
+   ============================================= */
+
+.profile-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  width: 100%;
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-xl);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.profile-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-md);
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: var(--radius-md);
+}
+
+.profile-stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.profile-stat-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+/* =============================================
+   PROFILE SKILLS SECTION
+   ============================================= */
+
+.profile-skills-section {
+  width: 100%;
+}
+
+.profile-skills-section h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-md);
+}
+
+.profile-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.profile-skill-tag {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: var(--color-dark);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* =============================================
+   PROFILE EDIT CARD
+   ============================================= */
+
+.profile-edit-card h3 {
+  margin-bottom: 4px;
+}
+
+.form-note {
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  margin-bottom: var(--space-xl);
+}
+
+/* =============================================
+   PROFILE DETAILS (VIEW MODE)
+   ============================================= */
+
+.profile-details h3 {
+  margin-bottom: var(--space-xl);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.detail-item--full {
+  grid-column: 1 / -1;
+}
+
+.detail-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.detail-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.detail-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.profile-info-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: var(--space-xl);
+  padding: var(--space-md);
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.profile-info-note svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* =============================================
+   EMPTY PROFILE STATE
+   ============================================= */
+
+.empty-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 60px 40px;
+  color: var(--color-text-muted);
+}
+
+.empty-profile svg {
+  opacity: 0.3;
+  margin-bottom: var(--space-lg);
+}
+
+.empty-profile h3 {
+  color: var(--color-text);
+  margin-bottom: var(--space-sm);
+}
+
+.empty-profile p {
+  max-width: 400px;
+  line-height: 1.6;
+}
+
+/* =============================================
+   SUCCESS BANNER
+   ============================================= */
+
+.success-banner {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-lg);
+  font-weight: 500;
+  animation: fadeInUp 0.3s ease;
+}
+
+/* =============================================
+   PAGE HEADER WITH BUTTON
+   ============================================= */
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-xl);
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+
+@media (max-width: 900px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}

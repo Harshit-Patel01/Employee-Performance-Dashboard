@@ -40,8 +40,15 @@ const AddEmployee = () => {
 
       await employeeService.addEmployee(data);
       setSuccess('Employee added successfully!');
+
+      // Get user role to determine redirect
+      const userRole = localStorage.getItem('userRole');
       setTimeout(() => {
-        navigate('/employees');
+        if (userRole === 'candidate') {
+          navigate('/profile');
+        } else {
+          navigate('/employees');
+        }
       }, 1500);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to add employee');

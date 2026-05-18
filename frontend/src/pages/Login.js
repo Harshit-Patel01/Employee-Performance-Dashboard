@@ -27,8 +27,15 @@ const Login = ({ setIsAuthenticated }) => {
     try {
       const response = await authService.login(formData);
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userRole', response.data.user.role);
       setIsAuthenticated(true);
-      navigate('/');
+
+      // Redirect based on role
+      if (response.data.user.role === 'hr') {
+        navigate('/');
+      } else {
+        navigate('/profile');
+      }
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     } finally {

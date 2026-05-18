@@ -34,6 +34,7 @@ export const authService = {
 export const employeeService = {
   addEmployee: (data) => api.post('/employees', data),
   getAllEmployees: () => api.get('/employees'),
+  getMyProfile: () => api.get('/employees/me'),
   getEmployeeById: (id) => api.get(`/employees/${id}`),
   searchEmployees: (params) => api.get('/employees/search', { params }),
   updateEmployee: (id, data) => api.put(`/employees/${id}`, data),
