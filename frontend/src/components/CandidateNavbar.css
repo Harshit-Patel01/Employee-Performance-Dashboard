@@ -1,17 +1,5 @@
 /* Inherits most styles from Navbar.css */
 
-.sidebar-role-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  background: var(--color-accent-light);
-  border-radius: var(--radius-md);
-  margin-bottom: var(--space-xl);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-text);
-}
 
 .sidebar-info-box {
   display: flex;

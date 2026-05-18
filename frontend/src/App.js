@@ -12,10 +12,15 @@ import CandidateNavbar from './components/CandidateNavbar';
 import { authService } from './services/api';
 import './App.css';
 
-function AppContent({ isAuthenticated, setIsAuthenticated, userRole }) {
+function AppContent({ isAuthenticated, setIsAuthenticated, userRole, loading }) {
   const location = useLocation();
   const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
   const showSidebar = isAuthenticated && !isAuthPage;
+
+  // Show loading while userRole is being fetched
+  if (loading && isAuthenticated && !isAuthPage) {
+    return <div className="loading">Loading...</div>;
+  }
 
   const PrivateRoute = ({ children }) => {
     return isAuthenticated ? children : <Navigate to="/login" />;
@@ -24,6 +29,12 @@ function AppContent({ isAuthenticated, setIsAuthenticated, userRole }) {
   const HRRoute = ({ children }) => {
     if (!isAuthenticated) return <Navigate to="/login" />;
     if (userRole !== 'hr') return <Navigate to="/profile" />;
+    return children;
+  };
+
+  const CandidateRoute = ({ children }) => {
+    if (!isAuthenticated) return <Navigate to="/login" />;
+    if (userRole === 'hr') return <Navigate to="/" />;
     return children;
   };
 
@@ -53,15 +64,6 @@ function AppContent({ isAuthenticated, setIsAuthenticated, userRole }) {
               </HRRoute>
             }
           />
-          {/* Shared Routes */}
-          <Route
-            path="/add-employee"
-            element={
-              <PrivateRoute>
-                <AddEmployee />
-              </PrivateRoute>
-            }
-          />
           <Route
             path="/ai-recommendations"
             element={
@@ -75,8 +77,16 @@ function AppContent({ isAuthenticated, setIsAuthenticated, userRole }) {
           <Route
             path="/profile"
             element={
-              <PrivateRoute>
+              <CandidateRoute>
                 <CandidateProfile />
+              </CandidateRoute>
+            }
+          />
+          <Route
+            path="/add-employee"
+            element={
+              <PrivateRoute>
+                <AddEmployee />
               </PrivateRoute>
             }
           />
@@ -133,6 +143,7 @@ function App() {
         isAuthenticated={isAuthenticated}
         setIsAuthenticated={setIsAuthenticated}
         userRole={userRole}
+        loading={loading}
       />
     </Router>
   );
